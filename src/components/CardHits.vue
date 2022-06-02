@@ -1,28 +1,29 @@
 <script setup lang="ts">
 import {results} from '../stores/cardStore'
+import {getCardImageUrlById} from "../services/search/entities/CardHit";
 
 </script>
 
 <template>
   <div id="resultsWrapper">
     <div v-for="card in results" :key="card.id" class="cardHit">
-      <div id="picture">
-        <img src="https://picsum.photos/200/300" alt="">
+      <div class="picture">
+        <img :src="getCardImageUrlById(card.id)" alt="">
       </div>
 
-      <div id="name">{{ card.name }}</div>
+      <div class="name">{{ card.name }}</div>
 
-      <div id="info">
-        <span id="attribute">{{card.attribute}}</span>
+      <div class="info">
+        <span class="attribute">{{card.attribute}}</span>
         <span v-if="card.attribute && card.type"> / </span>
-        <span id="type">{{card.type}}</span>
+        <span class="type">{{card.type}}</span>
       </div>
 
-      <div id="description">{{card.desc}}</div>
-      <div id="stats" v-if="card.atk || card.def">
-        <span id="atk" v-if="card.atk">ATK : {{card.atk}}</span>
+      <div class="description">{{card.desc}}</div>
+      <div class="stats" v-if="card.atk || card.def">
+        <span class="atk" v-if="card.atk">ATK : {{card.atk}}</span>
         <span v-if="card.atk && card.def"> / </span>
-        <span id="def" v-if="card.def">DEF : {{card.def}}</span>
+        <span class="def" v-if="card.def">DEF : {{card.def}}</span>
       </div>
 
     </div>
@@ -45,22 +46,29 @@ import {results} from '../stores/cardStore'
   grid-template-columns: 1fr 3fr;
   grid-template-rows: repeat(4, auto);
   grid-row-gap: 2vh;
+  grid-column-gap: 2vw;
   align-items: center;
+  justify-content: center;
 
-  >#picture {
-    grid-row: 1/3;
+  >.picture {
+    grid-row: 1/5;
   }
 
-  >#name {
-    font-weight: bold;
+  >.name {
+    font-size: 1.2rem;
+    font-style: italic;
   }
 
-  >#description, >#stats {
-    grid-column: 1/3;
+  >.description {
+    text-align: left;
   }
 
-  >#picture>img {
-    height: 15vh;
+  >.description, >.stats {
+    grid-column: 2/3;
+  }
+
+  >.picture>img {
+    height: 18vh;
     margin: auto;
   }
 }

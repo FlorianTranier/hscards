@@ -11,3 +11,5 @@ export interface CardHit {
   level: number,
   attribute: string
 }
+
+export const getCardImageUrlById = (id: number) => `https://files.yucards.ftranier.fr/${id}`

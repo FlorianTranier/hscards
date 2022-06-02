@@ -37,7 +37,7 @@ main {
 
 @media only screen and (min-width: 1280px) {
   main {
-    margin: 5vh 35vw;
+    margin: 5vh 15vw;
   }
 }
 
