@@ -24,7 +24,7 @@ import CardHits from './components/CardHits.vue'
 }
 
 :root {
-  background-color: rgba(0, 0, 0, 0.85);
+  background-color: #001b35;
   color: #ffffff;
 }
 

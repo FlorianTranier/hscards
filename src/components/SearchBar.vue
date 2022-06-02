@@ -11,9 +11,17 @@ watchEffect(() => {
 </script>
 
 <template>
-  <input type="text" name="searchBar" id="searchBar" v-model="searchValue" placeholder="Search cards here">
+  <input type="text" name="searchBar" id="searchBar" v-model="searchValue" placeholder="Search cards here" autofocus>
 </template>
 
 <style scoped>
+
+#searchBar {
+  padding: 1rem;
+  font-size: 1.2rem;
+  font-style: italic;
+  text-align: center;
+  border-radius: 10px;
+}
 
 </style>
