@@ -1,0 +1,25 @@
+{
+  "name": "yugicards",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc --noEmit && vite build",
+    "preview": "vite preview"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@meilisearch/instant-meilisearch": "^0.7.1",
+    "axios": "^0.27.2",
+    "instantsearch.js": "^4.40.5",
+    "vue": "^3.2.25",
+    "vue-instantsearch": "^4.3.3"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^2.3.3",
+    "sass": "^1.52.1",
+    "typescript": "^4.5.4",
+    "vite": "^2.9.9",
+    "vue-tsc": "^0.34.7"
+  }
+}
