@@ -1,10 +1,12 @@
 <script setup lang="ts">
+import CardDetails from './components/CardDetails.vue'
 import SearchBar from './components/SearchBar.vue'
 import CardHits from './components/CardHits.vue'
 
 </script>
 
 <template>
+  <CardDetails id="details" />
   <main>
     <SearchBar />
     <CardHits />
@@ -24,6 +26,7 @@ import CardHits from './components/CardHits.vue'
 :root {
   background-color: #001b35;
   color: #ffffff;
+  margin: 0;
 }
 
 main {
@@ -31,6 +34,9 @@ main {
   display: grid;
   grid-template-rows: 5vh 1fr;
   row-gap: 2vh;
+}
+
+#details {
 }
 
 @media only screen and (min-width: 1280px) {

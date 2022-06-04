@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { results } from '../stores/cardStore'
+import { results, selectedCard } from '../stores/cardStore'
 import { getCardImageUrlById } from '../services/search/entities/CardHit'
 
 </script>
@@ -11,7 +11,10 @@ import { getCardImageUrlById } from '../services/search/entities/CardHit'
       :key="card.id"
       class="cardHit"
     >
-      <div class="picture">
+      <div
+        class="picture"
+        @click="selectedCard = card"
+      >
         <img
           :src="getCardImageUrlById(card.id)"
           alt=""
@@ -58,7 +61,7 @@ import { getCardImageUrlById } from '../services/search/entities/CardHit'
 }
 
 .cardHit {
-  border: 2px solid lightgray;
+  border-bottom: 2px solid lightgray;
   padding: 2vh;
   display: grid;
   grid-template-columns: 1fr 3fr;
@@ -70,6 +73,7 @@ import { getCardImageUrlById } from '../services/search/entities/CardHit'
 
   >.picture {
     grid-row: 1/5;
+    cursor: pointer;
   }
 
   >.name {
