@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import {searchCards} from "../services/search/search";
-import {ref, watchEffect} from "vue";
-import {results} from '../stores/cardStore'
+import { searchCards } from '../services/search/search'
+import { ref, watchEffect } from 'vue'
+import { results } from '../stores/cardStore'
 
 const searchValue = ref('')
 
@@ -11,7 +11,14 @@ watchEffect(() => {
 </script>
 
 <template>
-  <input type="text" name="searchBar" id="searchBar" v-model="searchValue" placeholder="Search cards here" autofocus>
+  <input
+    id="searchBar"
+    v-model="searchValue"
+    type="text"
+    name="searchBar"
+    placeholder="Search cards here"
+    autofocus
+  >
 </template>
 
 <style scoped>

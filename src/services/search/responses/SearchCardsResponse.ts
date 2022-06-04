@@ -1,4 +1,4 @@
-import {CardHit} from "../entities/CardHit";
+import { CardHit } from '../entities/CardHit'
 
 export interface SearchCardsResponse {
   hits: CardHit[],

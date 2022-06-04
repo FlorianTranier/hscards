@@ -5,12 +5,10 @@ import CardHits from './components/CardHits.vue'
 </script>
 
 <template>
-
-    <main>
-      <SearchBar />
-      <CardHits />
-    </main>
-
+  <main>
+    <SearchBar />
+    <CardHits />
+  </main>
 </template>
 
 <style>

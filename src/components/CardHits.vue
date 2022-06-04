@@ -1,34 +1,52 @@
 <script setup lang="ts">
-import {results} from '../stores/cardStore'
-import {getCardImageUrlById} from "../services/search/entities/CardHit";
+import { results } from '../stores/cardStore'
+import { getCardImageUrlById } from '../services/search/entities/CardHit'
 
 </script>
 
 <template>
   <div id="resultsWrapper">
-    <div v-for="card in results" :key="card.id" class="cardHit">
+    <div
+      v-for="card in results"
+      :key="card.id"
+      class="cardHit"
+    >
       <div class="picture">
-        <img :src="getCardImageUrlById(card.id)" alt="">
+        <img
+          :src="getCardImageUrlById(card.id)"
+          alt=""
+        >
       </div>
 
-      <div class="name">{{ card.name }}</div>
+      <div class="name">
+        {{ card.name }}
+      </div>
 
       <div class="info">
-        <span class="attribute">{{card.attribute}}</span>
+        <span class="attribute">{{ card.attribute }}</span>
         <span v-if="card.attribute && card.type"> / </span>
-        <span class="type">{{card.type}}</span>
+        <span class="type">{{ card.type }}</span>
       </div>
 
-      <div class="description">{{card.desc}}</div>
-      <div class="stats" v-if="card.atk || card.def">
-        <span class="atk" v-if="card.atk">ATK : {{card.atk}}</span>
+      <div class="description">
+        {{ card.desc }}
+      </div>
+      <div
+        v-if="card.atk || card.def"
+        class="stats"
+      >
+        <span
+          v-if="card.atk"
+          class="atk"
+        >ATK : {{ card.atk }}</span>
         <span v-if="card.atk && card.def"> / </span>
-        <span class="def" v-if="card.def">DEF : {{card.def}}</span>
+        <span
+          v-if="card.def"
+          class="def"
+        >DEF : {{ card.def }}</span>
       </div>
-
     </div>
   </div>
-
 </template>
 
 <style scoped lang="scss">
