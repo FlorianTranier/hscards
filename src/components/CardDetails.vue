@@ -21,13 +21,26 @@ import { getCardImageUrlById } from '../services/search/entities/CardHit'
           alt=""
         >
       </div>
-      <div class="title">
+      <div class="name">
         {{ selectedCard?.name ?? '' }}
+      </div>
+
+      <div
+        v-if="selectedCard.level"
+        class="level"
+      >
+        Level/Rank : {{ selectedCard.level }}
+      </div>
+
+      <div v-if="selectedCard.archetype">
+        Archetype : {{ selectedCard.archetype }}
       </div>
 
       <div class="info">
         <span class="attribute">{{ selectedCard.attribute }}</span>
-        <span v-if="selectedCard.attribute && selectedCard.type"> / </span>
+        <span v-if="selectedCard.attribute && selectedCard.race"> / </span>
+        <span class="race">{{ selectedCard.race }}</span>
+        <span v-if="selectedCard.race && selectedCard.type"> / </span>
         <span class="type">{{ selectedCard.type }}</span>
       </div>
 
@@ -62,7 +75,7 @@ import { getCardImageUrlById } from '../services/search/entities/CardHit'
 
 #container {
   display: grid;
-  grid-template-rows: 1fr 0.2fr 0.2fr auto 0.2fr;
+  grid-template-rows: 1fr repeat(auto-fit, minmax(0.2fr, 1fr));
   grid-template-columns: auto;
   align-items: flex-start;
   justify-content: center;
@@ -88,13 +101,25 @@ import { getCardImageUrlById } from '../services/search/entities/CardHit'
   }
 }
 
+.name {
+  font-size: 1.2rem;
+  font-style: italic;
+}
+
+.description {
+  text-align: left;
+}
+
 #close-btn {
+  position: sticky;
+  bottom: 0;
   align-self: center;
   justify-self: center;
   padding: 2vh 0;
-  width: 40%;
+  width: 30vw;
   outline: 2px solid white;
   cursor: pointer;
+  background-color: inherit;
 }
 
 #outside {

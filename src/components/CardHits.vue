@@ -25,15 +25,25 @@ import { getCardImageUrlById } from '../services/search/entities/CardHit'
         {{ card.name }}
       </div>
 
+      <div
+        v-if="card.level"
+        class="level"
+      >
+        Level/Rank : {{ card.level }}
+      </div>
+
+      <div v-if="card.archetype">
+        Archetype : {{ card.archetype }}
+      </div>
+
       <div class="info">
         <span class="attribute">{{ card.attribute }}</span>
-        <span v-if="card.attribute && card.type"> / </span>
+        <span v-if="card.attribute && card.race"> / </span>
+        <span class="race">{{ card.race }}</span>
+        <span v-if="card.race && card.type"> / </span>
         <span class="type">{{ card.type }}</span>
       </div>
 
-      <div class="description">
-        {{ card.desc }}
-      </div>
       <div
         v-if="card.atk || card.def"
         class="stats"
@@ -47,6 +57,10 @@ import { getCardImageUrlById } from '../services/search/entities/CardHit'
           v-if="card.def"
           class="def"
         >DEF : {{ card.def }}</span>
+      </div>
+
+      <div class="description">
+        {{ card.desc }}
       </div>
     </div>
   </div>
@@ -65,14 +79,14 @@ import { getCardImageUrlById } from '../services/search/entities/CardHit'
   padding: 2vh;
   display: grid;
   grid-template-columns: 1fr 3fr;
-  grid-template-rows: repeat(4, auto);
+  grid-template-rows: repeat(6, auto);
   grid-row-gap: 2vh;
   grid-column-gap: 2vw;
   align-items: center;
   justify-content: center;
 
   >.picture {
-    grid-row: 1/5;
+    grid-row: 1/7;
     cursor: pointer;
   }
 
