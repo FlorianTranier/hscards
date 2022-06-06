@@ -1,15 +1,18 @@
 <script setup lang="ts">
+import CardHitsGrid from './components/CardHitsGrid.vue'
 import CardDetails from './components/CardDetails.vue'
 import SearchBar from './components/SearchBar.vue'
-import CardHits from './components/CardHits.vue'
+import CardHitsList from './components/CardHitsList.vue'
+import { view } from './stores/layoutStore'
 
 </script>
 
 <template>
   <CardDetails id="details" />
   <main>
-    <SearchBar />
-    <CardHits />
+    <SearchBar id="searchComponent" />
+    <CardHitsList v-if="view === 'list'" />
+    <CardHitsGrid v-if="view === 'grid'" />
   </main>
 </template>
 
@@ -21,10 +24,12 @@ import CardHits from './components/CardHits.vue'
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
+  box-sizing: border-box;
 }
 
 :root {
-  background-color: #001b35;
+  --bg-color: #001b35;
+  background-color: var(--bg-color);
   color: #ffffff;
   margin: 0;
 }
@@ -32,8 +37,13 @@ import CardHits from './components/CardHits.vue'
 main {
   margin: 5vh 5vw;
   display: grid;
-  grid-template-rows: 5vh 1fr;
+  grid-template-rows: 10rem auto;
+  align-items: start;
+  justify-content: stretch;
   row-gap: 2vh;
+}
+
+#searchComponent {
 }
 
 #details {
