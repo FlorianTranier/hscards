@@ -5,10 +5,21 @@ import { results } from '../stores/cardStore'
 import { view } from '../stores/layoutStore'
 
 const searchValue = ref('')
+const searchOffset = ref(0)
 
 watchEffect(() => {
   searchCards(searchValue.value).then(data => results.value = data.hits )
+  searchOffset.value = 0
 })
+
+window.onscroll = () => {
+  let bottomOfWindow = document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight
+  if (bottomOfWindow) {
+    searchOffset.value += 20
+    searchCards(searchValue.value, searchOffset.value).then(data => results.value.push(...data.hits) )
+  }
+}
+
 </script>
 
 <template>

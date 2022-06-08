@@ -10,6 +10,6 @@ const client = axios.create({
   }
 })
 
-export const searchCards = async (query: string): Promise<SearchCardsResponse> => {
-  return <SearchCardsResponse>(await client.get(`indexes/cards-fr/search?q=${query}`)).data
+export const searchCards = async (query: string, offset = 0): Promise<SearchCardsResponse> => {
+  return <SearchCardsResponse>(await client.get(`indexes/cards-fr/search?q=${query}&offset=${offset}`)).data
 }
