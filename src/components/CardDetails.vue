@@ -79,7 +79,7 @@ import { getCardImageUrlById } from '../services/search/entities/CardHit'
   grid-template-columns: auto;
   align-items: flex-start;
   justify-content: center;
-  background-color: #001020;
+  background-color: var(--bg-color);
   padding: 2vh 2vw;
   grid-gap: 2vw;
   grid-row-gap: 2vh;
@@ -120,6 +120,11 @@ import { getCardImageUrlById } from '../services/search/entities/CardHit'
   outline: 2px solid white;
   cursor: pointer;
   background-color: inherit;
+  transition: background-color 100ms;
+
+  &:hover {
+    background-color: var(--accent-color);
+  }
 }
 
 #outside {

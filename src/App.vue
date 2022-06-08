@@ -28,7 +28,8 @@ import { view } from './stores/layoutStore'
 }
 
 :root {
-  --bg-color: #001b35;
+  --bg-color: #111111;
+  --accent-color: #0074D9;
   background-color: var(--bg-color);
   color: #ffffff;
   margin: 0;

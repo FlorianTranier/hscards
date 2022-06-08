@@ -90,6 +90,13 @@ import { getCardImageUrlById } from '../services/search/entities/CardHit'
   >.picture {
     grid-row: 1/7;
     cursor: pointer;
+    padding: 2rem;
+    transition: 100ms;
+
+    &:hover, &:focus, &:focus-visible {
+      box-shadow: inset 0 0 4rem -2rem #0074D9;
+      border-radius: 1rem;
+    }
   }
 
   >.name {

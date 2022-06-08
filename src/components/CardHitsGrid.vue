@@ -41,6 +41,16 @@ import { getCardImageUrlById } from '../services/search/entities/CardHit'
   cursor: pointer;
 }
 
+.picture {
+
+  &:hover, &:focus, &:focus-visible {
+    padding: 1rem;
+    box-shadow: inset 0 0 4rem -2rem #0074D9;
+    border-radius: 1rem;
+  }
+
+}
+
 .picture > img {
   width: 100%;
 }

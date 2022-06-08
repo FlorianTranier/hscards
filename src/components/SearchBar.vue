@@ -28,14 +28,22 @@ watchEffect(() => {
           :class="{selected: view === 'list'}"
           @click="view = 'list'"
         >
-          LIST
+          <img
+            src="../assets/list.svg"
+            alt=""
+            class="icons"
+          >
         </button>
         <button
           class="viewButton"
           :class="{selected: view === 'grid'}"
           @click="view = 'grid'"
         >
-          GRID
+          <img
+            src="../assets/grid.svg"
+            alt=""
+            class="icons"
+          >
         </button>
       </div>
     </div>
@@ -47,6 +55,7 @@ watchEffect(() => {
 #wrapper {
   display: grid;
   grid-template-rows: 1fr .9fr;
+  grid-row-gap: 2rem;
   align-items: stretch;
   justify-content: stretch;
 }
@@ -55,8 +64,8 @@ watchEffect(() => {
   display: flex;
   justify-content: stretch;
   flex-direction: row;
-  border-radius: 0 0 .2rem .2rem;
-  border: .1rem solid white;
+  border-radius: .2rem;
+  outline: .3rem solid var(--accent-color);
 }
 
 .viewButton {
@@ -67,8 +76,15 @@ watchEffect(() => {
   width: 100%;
 
   &.selected {
-    background-color: white;
-    color: black;
+    background-color: var(--accent-color);
+    color: white;
+  }
+
+  .icons {
+    position: relative;
+    height: 2rem;
+    display: inline-block;
+    filter: invert(100%);
   }
 }
 
@@ -76,10 +92,12 @@ watchEffect(() => {
   padding: 1rem;
   font-size: 1.2rem;
   font-style: italic;
-  text-align: center;
-  border: .1rem solid white;
-  border-bottom: none;
-  border-radius: .2rem .2rem 0 0;
+  outline: .2rem solid var(--bg-color);
+  border-radius: .2rem;
+
+  &:focus-visible {
+    outline: .2rem solid var(--accent-color);
+  }
 }
 
 </style>
