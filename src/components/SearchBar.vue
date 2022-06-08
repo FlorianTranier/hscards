@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { searchCards } from '../services/search/search'
 import { ref, watchEffect } from 'vue'
+import { searchCards } from '../services/search/search'
 import { results } from '../stores/cardStore'
-import { view } from '../stores/layoutStore'
+import { view, ViewType } from '../stores/layoutStore'
 
 const searchValue = ref('')
 const searchOffset = ref(0)
@@ -11,6 +11,10 @@ watchEffect(() => {
   searchCards(searchValue.value).then(data => results.value = data.hits )
   searchOffset.value = 0
 })
+
+const switchViewType = () =>
+  view.value = view.value === ViewType.GRID ? ViewType.LIST : ViewType.GRID
+
 
 window.onscroll = () => {
   let bottomOfWindow = document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight
@@ -36,22 +40,17 @@ window.onscroll = () => {
       <div id="viewButtons">
         <button
           class="viewButton"
-          :class="{selected: view === 'list'}"
-          @click="view = 'list'"
+          @click="switchViewType"
         >
           <img
-            src="../assets/list.svg"
+            v-show="view === ViewType.GRID"
+            src="../assets/grid.svg"
             alt=""
             class="icons"
           >
-        </button>
-        <button
-          class="viewButton"
-          :class="{selected: view === 'grid'}"
-          @click="view = 'grid'"
-        >
           <img
-            src="../assets/grid.svg"
+            v-show="view === ViewType.LIST"
+            src="../assets/list.svg"
             alt=""
             class="icons"
           >
@@ -65,8 +64,10 @@ window.onscroll = () => {
 
 #wrapper {
   display: grid;
-  grid-template-rows: 1fr .9fr;
-  grid-row-gap: 2rem;
+  max-width: 100vw;
+  grid-template-rows: 1fr;
+  grid-template-columns: 2fr .1fr;
+  grid-column-gap: 1rem;
   align-items: stretch;
   justify-content: stretch;
 }
@@ -76,7 +77,7 @@ window.onscroll = () => {
   justify-content: stretch;
   flex-direction: row;
   border-radius: .2rem;
-  outline: .3rem solid var(--accent-color);
+  //outline: .3rem solid var(--accent-color);
 }
 
 .viewButton {
@@ -100,11 +101,9 @@ window.onscroll = () => {
 }
 
 #searchBar {
-  padding: 1rem;
-  font-size: 1.2rem;
-  font-style: italic;
-  outline: .2rem solid var(--bg-color);
-  border-radius: .2rem;
+  display: inline-block;
+  padding: 0 .6rem;
+  border-radius: 1rem;
 
   &:focus-visible {
     outline: .2rem solid var(--accent-color);

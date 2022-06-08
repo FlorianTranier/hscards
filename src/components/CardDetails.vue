@@ -21,46 +21,50 @@ import { getCardImageUrlById } from '../services/search/entities/CardHit'
           alt=""
         >
       </div>
-      <div class="name">
-        {{ selectedCard?.name ?? '' }}
+
+      <div id="detailsWrapper">
+        <div class="name">
+          {{ selectedCard?.name ?? '' }}
+        </div>
+
+        <div
+          v-if="selectedCard.level"
+          class="level"
+        >
+          Level/Rank : {{ selectedCard.level }}
+        </div>
+
+        <div v-if="selectedCard.archetype">
+          Archetype : {{ selectedCard.archetype }}
+        </div>
+
+        <div class="info">
+          <span class="attribute">{{ selectedCard.attribute }}</span>
+          <span v-if="selectedCard.attribute && selectedCard.race"> / </span>
+          <span class="race">{{ selectedCard.race }}</span>
+          <span v-if="selectedCard.race && selectedCard.type"> / </span>
+          <span class="type">{{ selectedCard.type }}</span>
+        </div>
+
+        <div class="description">
+          {{ selectedCard.desc }}
+        </div>
+        <div
+          v-if="selectedCard.atk || selectedCard.def"
+          class="stats"
+        >
+          <span
+            v-if="selectedCard.atk"
+            class="atk"
+          >ATK : {{ selectedCard.atk }}</span>
+          <span v-if="selectedCard.atk && selectedCard.def"> / </span>
+          <span
+            v-if="selectedCard.def"
+            class="def"
+          >DEF : {{ selectedCard.def }}</span>
+        </div>
       </div>
 
-      <div
-        v-if="selectedCard.level"
-        class="level"
-      >
-        Level/Rank : {{ selectedCard.level }}
-      </div>
-
-      <div v-if="selectedCard.archetype">
-        Archetype : {{ selectedCard.archetype }}
-      </div>
-
-      <div class="info">
-        <span class="attribute">{{ selectedCard.attribute }}</span>
-        <span v-if="selectedCard.attribute && selectedCard.race"> / </span>
-        <span class="race">{{ selectedCard.race }}</span>
-        <span v-if="selectedCard.race && selectedCard.type"> / </span>
-        <span class="type">{{ selectedCard.type }}</span>
-      </div>
-
-      <div class="description">
-        {{ selectedCard.desc }}
-      </div>
-      <div
-        v-if="selectedCard.atk || selectedCard.def"
-        class="stats"
-      >
-        <span
-          v-if="selectedCard.atk"
-          class="atk"
-        >ATK : {{ selectedCard.atk }}</span>
-        <span v-if="selectedCard.atk && selectedCard.def"> / </span>
-        <span
-          v-if="selectedCard.def"
-          class="def"
-        >DEF : {{ selectedCard.def }}</span>
-      </div>
       <div
         id="close-btn"
         @click="selectedCard = undefined"
@@ -75,14 +79,11 @@ import { getCardImageUrlById } from '../services/search/entities/CardHit'
 
 #container {
   display: grid;
-  grid-template-rows: 1fr repeat(auto-fit, minmax(0.2fr, 1fr));
+  background-color: var(--bg-color);
   grid-template-columns: auto;
   align-items: flex-start;
   justify-content: center;
-  background-color: var(--bg-color);
   padding: 2vh 2vw;
-  grid-gap: 2vw;
-  grid-row-gap: 2vh;
   position: fixed;
   top: 50%;
   left: 50%;
@@ -91,18 +92,27 @@ import { getCardImageUrlById } from '../services/search/entities/CardHit'
   overflow-y: auto;
   outline: 2px solid white;
   max-height: 90%;
-  min-width: 70%;
+  width: min(40em, 90%);
+}
+
+#detailsWrapper {
+  background-color: var(--secondary-bg-color);
+  border-radius: 1rem;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  row-gap: .7rem;
 }
 
 .picture {
-
+  margin-bottom: 1rem;
   >img {
     height: 40vh;
   }
 }
 
 .name {
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   font-style: italic;
 }
 
@@ -121,9 +131,10 @@ import { getCardImageUrlById } from '../services/search/entities/CardHit'
   cursor: pointer;
   background-color: inherit;
   transition: background-color 100ms;
+  margin-top: 1rem;
 
   &:hover {
-    background-color: var(--accent-color);
+    background-color: var(--secondary-bg-color);
   }
 }
 

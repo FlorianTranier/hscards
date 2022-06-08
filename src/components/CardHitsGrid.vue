@@ -39,16 +39,15 @@ import { getCardImageUrlById } from '../services/search/entities/CardHit'
 
 .cardHit {
   cursor: pointer;
-}
-
-.picture {
+  transition: background-color 100ms;
 
   &:hover, &:focus, &:focus-visible {
-    padding: 1rem;
-    box-shadow: inset 0 0 4rem -2rem #0074D9;
-    border-radius: 1rem;
+    text-decoration: underline var(--accent-color) .2rem;
   }
+}
 
+.name {
+  font-size: 1.2rem;
 }
 
 .picture > img {

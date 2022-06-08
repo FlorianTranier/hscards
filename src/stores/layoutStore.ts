@@ -1,5 +1,8 @@
 import { Ref, ref } from 'vue'
 
-export type ViewType = 'grid' | 'list'
+export enum ViewType {
+  GRID = 'grid',
+  LIST = 'list'
+}
 
-export const view: Ref<ViewType> = ref('list')
+export const view: Ref<ViewType> = ref(ViewType.GRID)
