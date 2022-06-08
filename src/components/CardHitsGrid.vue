@@ -33,7 +33,7 @@ import { getCardImageUrlById } from '../services/search/entities/CardHit'
 <style scoped lang="scss">
 #grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(150px, 100%), 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(150px, 8rem), 1fr));
   grid-gap: 2rem;
 }
 
