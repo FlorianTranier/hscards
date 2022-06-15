@@ -1,14 +1,19 @@
 <script setup lang="ts">
+import { typesFilter } from '../stores/searchFilterStore'
 import { ref, watchEffect } from 'vue'
 import { searchCards } from '../services/search/search'
 import { results } from '../stores/cardStore'
 import { view, ViewType } from '../stores/layoutStore'
+import SearchFilterMultiSelect from './SearchFilterMultiSelect.vue'
+import { EnumHelpers } from '../helpers/EnumHelpers'
+import { CardType } from '../enums/CardType'
 
 const searchValue = ref('')
 const searchOffset = ref(0)
+const displayTypeFilter = ref(false)
 
 watchEffect(() => {
-  searchCards(searchValue.value).then(data => results.value = data.hits )
+  searchCards(searchValue.value, 0, typesFilter.value).then(data => results.value = data.hits )
   searchOffset.value = 0
 })
 
@@ -20,7 +25,7 @@ window.onscroll = () => {
   let bottomOfWindow = document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight
   if (bottomOfWindow) {
     searchOffset.value += 20
-    searchCards(searchValue.value, searchOffset.value).then(data => results.value.push(...data.hits) )
+    searchCards(searchValue.value, searchOffset.value, typesFilter.value).then(data => results.value.push(...data.hits) )
   }
 }
 
@@ -56,6 +61,25 @@ window.onscroll = () => {
           >
         </button>
       </div>
+
+      <div id="filters">
+        <button
+          :class="{button__active: displayTypeFilter}"
+          @click="displayTypeFilter = !displayTypeFilter"
+        >
+          <div>Type</div>
+          <img
+            src="../assets/arrow-bottom.svg"
+            alt=""
+            class="icons"
+          >
+        </button>
+        <SearchFilterMultiSelect
+          v-show="displayTypeFilter"
+          class="filter"
+          :values="EnumHelpers.getNames(CardType)"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -65,9 +89,10 @@ window.onscroll = () => {
 #wrapper {
   display: grid;
   max-width: 100vw;
-  grid-template-rows: 1fr;
+  grid-template-rows: 1fr 1fr;
   grid-template-columns: 2fr .1fr;
   grid-column-gap: 1rem;
+  grid-row-gap: .4rem;
   align-items: stretch;
   justify-content: stretch;
 }
@@ -108,6 +133,42 @@ window.onscroll = () => {
   &:focus-visible {
     outline: .2rem solid var(--accent-color);
   }
+}
+
+#filters {
+  position: relative;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
+  button {
+    display: flex;
+    border-radius: 1em;
+    gap: .5em;
+    padding: .5em;
+    background-color: inherit;
+    color: white;
+    border: .2em solid white;
+    cursor: pointer;
+
+    >img {
+      filter: invert(1);
+      width: 1.2em;
+      margin: auto;
+    }
+
+    &.button__active {
+      background-color: var(--secondary-bg-color);
+    }
+
+
+  }
+}
+
+.filter {
+  position: absolute;
+  top: 100%;
+  width: 100%;
 }
 
 </style>
