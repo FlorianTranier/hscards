@@ -126,7 +126,7 @@ import { getCardImageUrlById } from '../services/search/entities/CardHit'
   align-self: center;
   justify-self: center;
   padding: 2vh 0;
-  width: 30vw;
+  width: 20em;
   outline: 2px solid white;
   cursor: pointer;
   background-color: inherit;
