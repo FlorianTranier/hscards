@@ -1,15 +1,23 @@
 <script setup lang="ts">
 
+import { FilterType } from '../enums/FilterType'
 import { ref, watchEffect } from 'vue'
-import { typesFilter } from '../stores/searchFilterStore'
+import { typesFilter, attributesFilter } from '../stores/searchFilterStore'
 
-defineProps<{
+const props = defineProps<{
+  filterType: FilterType
   values: string[]
 }>()
 
 const checkedTypes = ref<string[]>([])
 
-watchEffect(() => typesFilter.value = checkedTypes.value)
+watchEffect(() => {
+  switch (props.filterType) {
+  case FilterType.ATTRIBUTE: attributesFilter.value = checkedTypes.value
+    break
+  case FilterType.TYPE: typesFilter.value = checkedTypes.value
+  }
+})
 
 </script>
 

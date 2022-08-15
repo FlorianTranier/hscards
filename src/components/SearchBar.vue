@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { typesFilter } from '../stores/searchFilterStore'
+import { typesFilter, attributesFilter } from '../stores/searchFilterStore'
 import { ref, watchEffect } from 'vue'
 import { searchCards } from '../services/search/search'
 import { results } from '../stores/cardStore'
@@ -7,14 +7,16 @@ import { view, ViewType } from '../stores/layoutStore'
 import SearchFilterMultiSelect from './SearchFilterMultiSelect.vue'
 import { EnumHelpers } from '../helpers/EnumHelpers'
 import { CardType } from '../enums/CardType'
+import { CardAttribute } from '../enums/CardAttribute'
+import { FilterType } from '../enums/FilterType'
 
 const searchLanguage = ref('fr')
 const searchValue = ref('')
 const searchOffset = ref(0)
-const displayTypeFilter = ref(false)
+const displayFilter = ref('')
 
 watchEffect(() => {
-  searchCards(searchLanguage.value, searchValue.value, 0, typesFilter.value).then(data => results.value = data.hits )
+  searchCards(searchLanguage.value, searchValue.value, 0, typesFilter.value, attributesFilter.value).then(data => results.value = data.hits )
   searchOffset.value = 0
 })
 
@@ -29,7 +31,7 @@ window.onscroll = () => {
   console.log(document.documentElement.scrollTop, window.innerHeight, document.documentElement.offsetHeight)
   if (bottomOfWindow) {
     searchOffset.value += 20
-    searchCards(searchLanguage.value, searchValue.value, searchOffset.value, typesFilter.value).then(data => results.value.push(...data.hits) )
+    searchCards(searchLanguage.value, searchValue.value, searchOffset.value, typesFilter.value, attributesFilter.value).then(data => results.value.push(...data.hits) )
   }
 }
 
@@ -85,8 +87,8 @@ window.onscroll = () => {
 
       <div id="filters">
         <button
-          :class="{button__active: displayTypeFilter}"
-          @click="displayTypeFilter = !displayTypeFilter"
+          :class="{button__active: displayFilter === 'type'}"
+          @click="displayFilter = displayFilter === 'type' ? '' : 'type'"
         >
           <span>Type</span>
           <img
@@ -96,9 +98,27 @@ window.onscroll = () => {
           >
         </button>
         <SearchFilterMultiSelect
-          v-show="displayTypeFilter"
+          v-show="displayFilter === 'type'"
           class="filter"
           :values="EnumHelpers.getNames(CardType)"
+          :filter-type="FilterType.TYPE"
+        />
+        <button
+          :class="{button__active: displayFilter === 'attribute'}"
+          @click="displayFilter = displayFilter === 'attribute' ? '' : 'attribute'"
+        >
+          <span>Attribute</span>
+          <img
+            src="../assets/arrow-bottom.svg"
+            alt=""
+            class="icons inverted"
+          >
+        </button>
+        <SearchFilterMultiSelect
+          v-show="displayFilter === 'attribute'"
+          class="filter"
+          :values="EnumHelpers.getNames(CardAttribute)"
+          :filter-type="FilterType.ATTRIBUTE"
         />
       </div>
     </div>
@@ -160,6 +180,7 @@ window.onscroll = () => {
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  gap: .5rem;
 
   button {
     display: flex;
