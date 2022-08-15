@@ -25,7 +25,8 @@ const switchLanguage = () =>
   searchLanguage.value = searchLanguage.value === 'fr' ? 'en' : 'fr'
 
 window.onscroll = () => {
-  let bottomOfWindow = document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight
+  let bottomOfWindow = document.documentElement.scrollTop + window.innerHeight + 200 >= document.documentElement.offsetHeight
+  console.log(document.documentElement.scrollTop, window.innerHeight, document.documentElement.offsetHeight)
   if (bottomOfWindow) {
     searchOffset.value += 20
     searchCards(searchLanguage.value, searchValue.value, searchOffset.value, typesFilter.value).then(data => results.value.push(...data.hits) )
@@ -87,7 +88,7 @@ window.onscroll = () => {
           :class="{button__active: displayTypeFilter}"
           @click="displayTypeFilter = !displayTypeFilter"
         >
-          <div>Type</div>
+          <span>Type</span>
           <img
             src="../assets/arrow-bottom.svg"
             alt=""
