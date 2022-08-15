@@ -10,8 +10,8 @@ const client = axios.create({
   }
 })
 
-export const searchCards = async (query: string, offset = 0, types?: string[]): Promise<SearchCardsResponse> => {
-  let url = `indexes/cards-fr/search?q=${query}&offset=${offset}&limit=28`
+export const searchCards = async (searchLanguage: string, query: string, offset = 0, types?: string[]): Promise<SearchCardsResponse> => {
+  let url = `indexes/cards-${searchLanguage}/search?q=${query}&offset=${offset}&limit=28`
   if (types) {
     url += `&filter=${types.map(type => `type = "${type}"`).join(' OR ')}`
   }

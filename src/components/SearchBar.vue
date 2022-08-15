@@ -8,24 +8,27 @@ import SearchFilterMultiSelect from './SearchFilterMultiSelect.vue'
 import { EnumHelpers } from '../helpers/EnumHelpers'
 import { CardType } from '../enums/CardType'
 
+const searchLanguage = ref('fr')
 const searchValue = ref('')
 const searchOffset = ref(0)
 const displayTypeFilter = ref(false)
 
 watchEffect(() => {
-  searchCards(searchValue.value, 0, typesFilter.value).then(data => results.value = data.hits )
+  searchCards(searchLanguage.value, searchValue.value, 0, typesFilter.value).then(data => results.value = data.hits )
   searchOffset.value = 0
 })
 
 const switchViewType = () =>
   view.value = view.value === ViewType.GRID ? ViewType.LIST : ViewType.GRID
 
+const switchLanguage = () =>
+  searchLanguage.value = searchLanguage.value === 'fr' ? 'en' : 'fr'
 
 window.onscroll = () => {
   let bottomOfWindow = document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight
   if (bottomOfWindow) {
     searchOffset.value += 20
-    searchCards(searchValue.value, searchOffset.value, typesFilter.value).then(data => results.value.push(...data.hits) )
+    searchCards(searchLanguage.value, searchValue.value, searchOffset.value, typesFilter.value).then(data => results.value.push(...data.hits) )
   }
 }
 
@@ -51,11 +54,28 @@ window.onscroll = () => {
             v-show="view === ViewType.GRID"
             src="../assets/grid.svg"
             alt=""
-            class="icons"
+            class="icons inverted"
           >
           <img
             v-show="view === ViewType.LIST"
             src="../assets/list.svg"
+            alt=""
+            class="icons inverted"
+          >
+        </button>
+        <button
+          class="viewButton"
+          @click="switchLanguage"
+        >
+          <img
+            v-show="searchLanguage === 'fr'"
+            src="../assets/fr_flag.svg"
+            alt=""
+            class="icons"
+          >
+          <img
+            v-show="searchLanguage === 'en'"
+            src="../assets/uk_flag.svg"
             alt=""
             class="icons"
           >
@@ -71,7 +91,7 @@ window.onscroll = () => {
           <img
             src="../assets/arrow-bottom.svg"
             alt=""
-            class="icons"
+            class="icons inverted"
           >
         </button>
         <SearchFilterMultiSelect
@@ -121,7 +141,6 @@ window.onscroll = () => {
     position: relative;
     height: 2rem;
     display: inline-block;
-    filter: invert(100%);
   }
 }
 
@@ -152,7 +171,6 @@ window.onscroll = () => {
     cursor: pointer;
 
     >img {
-      filter: invert(1);
       width: 1.2em;
       margin: auto;
     }
@@ -163,6 +181,10 @@ window.onscroll = () => {
 
 
   }
+}
+
+.inverted {
+  filter: invert(1);
 }
 
 .filter {
