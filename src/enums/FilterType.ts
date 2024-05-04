@@ -1,4 +1,4 @@
 export enum FilterType {
-  TYPE,
-  ATTRIBUTE
+  RACE,
+  TECHLEVEL
 }

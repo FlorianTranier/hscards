@@ -2,7 +2,7 @@
 
 import { FilterType } from '../enums/FilterType'
 import { ref, watchEffect } from 'vue'
-import { typesFilter, attributesFilter } from '../stores/searchFilterStore'
+import { racesFilter, techLevelsFilter } from '../stores/searchFilterStore'
 
 const props = defineProps<{
   filterType: FilterType
@@ -13,9 +13,9 @@ const checkedTypes = ref<string[]>([])
 
 watchEffect(() => {
   switch (props.filterType) {
-  case FilterType.ATTRIBUTE: attributesFilter.value = checkedTypes.value
+  case FilterType.RACE: racesFilter.value = checkedTypes.value
     break
-  case FilterType.TYPE: typesFilter.value = checkedTypes.value
+  case FilterType.TECHLEVEL: techLevelsFilter.value = checkedTypes.value.map(value => value.length)
   }
 })
 

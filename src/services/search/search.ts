@@ -10,18 +10,18 @@ const client = axios.create({
   }
 })
 
-export const searchCards = async (searchLanguage: string, query: string, offset = 0, types: string[] = [], attributes: string[] = []): Promise<SearchCardsResponse> => {
-  let url = `indexes/cards-${searchLanguage}/search?q=${query}&offset=${offset}&limit=40`
-
-  if (types.length > 0) {
-    url += `&filter=(${types.map(type => `type = "${type}"`).join(' OR ')})`
+export const searchCards = async (searchLanguage: string, query: string, offset = 0, races: string[], techLevels: number[]): Promise<SearchCardsResponse> => {
+  let url = `indexes/hs-cards-${searchLanguage}/search?q=${query}&offset=${offset}&limit=40&filter=set="BATTLEGROUNDS"`
+  
+  if (races.length > 0) {
+    url += `AND (${races.map(type => `races = "${type}"`).join(' AND ')})`
   }
-
-  if (attributes.length > 0) {
+  
+  if (techLevels.length > 0) {
     if (url.includes('filter')) {
-      url += ` AND (${attributes.map(attribute => `attribute = "${attribute}"`).join(' OR ')})`
+      url += ` AND (${techLevels.map(attribute => `techLevel = "${attribute}"`).join(' OR ')})`
     } else {
-      url += `&filter=(${attributes.map(attribute => `attribute = "${attribute}"`).join(' OR ')})`
+      url += `&filter=(${techLevels.map(attribute => `techLevel = "${attribute}"`).join(' OR ')})`
     }
   }
   return <SearchCardsResponse>(await client.get(url)).data

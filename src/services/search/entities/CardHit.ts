@@ -1,15 +1,20 @@
 export interface CardHit {
-  id: number,
-  name: string,
-  type: string,
-  desc: string,
-  race: string,
-  name_en: string,
-  archetype: string,
-  atk: number,
-  def: number,
-  level: number,
-  attribute: string
+  name: string
+  set: string
+  cardClass: string
+  dbfId: number
+  health: number
+  id: string
+  type: string
+  attack: number
+  cost: number
+  text: string
+  race: string
+  races: string[]
+  referencedTags: string[]
+  battlegroundsPremiumDbfId: number
+  techLevel: number
+  isBattlegroundsPoolMinion: boolean
 }
 
-export const getCardImageUrlById = (id: number) => `https://files.yucards.ftranier.fr/${id}`
+export const getCardImageUrlById = (id: string) => `https://art.hearthstonejson.com/v1/render/latest/enUS/256x/${id}.png`

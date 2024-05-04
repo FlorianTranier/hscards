@@ -1,5 +1,5 @@
 import { ref, Ref } from 'vue'
 
-export const typesFilter: Ref<string[]> = ref([])
+export const racesFilter: Ref<string[]> = ref([])
 
-export const attributesFilter: Ref<string[]> = ref([])
+export const techLevelsFilter: Ref<number[]> = ref([])

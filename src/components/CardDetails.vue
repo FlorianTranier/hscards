@@ -28,40 +28,38 @@ import { getCardImageUrlById } from '../services/search/entities/CardHit'
         </div>
 
         <div
-          v-if="selectedCard.level"
+          v-if="selectedCard.techLevel"
           class="level"
         >
-          Level/Rank : {{ selectedCard.level }}
+          Level/Rank : {{ selectedCard.techLevel }}
         </div>
 
-        <div v-if="selectedCard.archetype">
-          Archetype : {{ selectedCard.archetype }}
+        <div v-if="selectedCard.cardClass">
+          Class : {{ selectedCard.cardClass }}
         </div>
 
         <div class="info">
-          <span class="attribute">{{ selectedCard.attribute }}</span>
-          <span v-if="selectedCard.attribute && selectedCard.race"> / </span>
           <span class="race">{{ selectedCard.race }}</span>
           <span v-if="selectedCard.race && selectedCard.type"> / </span>
           <span class="type">{{ selectedCard.type }}</span>
         </div>
 
         <div class="description">
-          {{ selectedCard.desc }}
+          {{ selectedCard.text }}
         </div>
         <div
-          v-if="selectedCard.atk || selectedCard.def"
+          v-if="selectedCard.attack || selectedCard.health"
           class="stats"
         >
           <span
-            v-if="selectedCard.atk"
+            v-if="selectedCard.attack"
             class="atk"
-          >ATK : {{ selectedCard.atk }}</span>
-          <span v-if="selectedCard.atk && selectedCard.def"> / </span>
+          >ATK : {{ selectedCard.attack }}</span>
+          <span v-if="selectedCard.attack && selectedCard.health"> / </span>
           <span
-            v-if="selectedCard.def"
+            v-if="selectedCard.health"
             class="def"
-          >DEF : {{ selectedCard.def }}</span>
+          >DEF : {{ selectedCard.health }}</span>
         </div>
       </div>
 

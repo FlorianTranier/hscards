@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { typesFilter, attributesFilter } from '../stores/searchFilterStore'
 import { ref, watchEffect } from 'vue'
 import { searchCards } from '../services/search/search'
 import { results } from '../stores/cardStore'
 import { view, ViewType } from '../stores/layoutStore'
 import SearchFilterMultiSelect from './SearchFilterMultiSelect.vue'
 import { EnumHelpers } from '../helpers/EnumHelpers'
-import { CardType } from '../enums/CardType'
-import { CardAttribute } from '../enums/CardAttribute'
+import { CardRace } from '../enums/CardRace'
+import { CardTechLevel } from '../enums/CardTechLevel'
 import { FilterType } from '../enums/FilterType'
+import { racesFilter, techLevelsFilter } from '../stores/searchFilterStore'
 
 const searchLanguage = ref('fr')
 const searchValue = ref('')
@@ -16,7 +16,7 @@ const searchOffset = ref(0)
 const displayFilter = ref('')
 
 watchEffect(() => {
-  searchCards(searchLanguage.value, searchValue.value, 0, typesFilter.value, attributesFilter.value).then(data => results.value = data.hits )
+  searchCards(searchLanguage.value, searchValue.value, 0, racesFilter.value, techLevelsFilter.value).then(data => results.value = data.hits )
   searchOffset.value = 0
 })
 
@@ -31,7 +31,7 @@ window.onscroll = () => {
   console.log(document.documentElement.scrollTop, window.innerHeight, document.documentElement.offsetHeight)
   if (bottomOfWindow) {
     searchOffset.value += 20
-    searchCards(searchLanguage.value, searchValue.value, searchOffset.value, typesFilter.value, attributesFilter.value).then(data => results.value.push(...data.hits) )
+    searchCards(searchLanguage.value, searchValue.value, searchOffset.value, racesFilter.value, techLevelsFilter.value).then(data => results.value.push(...data.hits) )
   }
 }
 
@@ -90,7 +90,7 @@ window.onscroll = () => {
           :class="{button__active: displayFilter === 'type'}"
           @click="displayFilter = displayFilter === 'type' ? '' : 'type'"
         >
-          <span>Type</span>
+          <span>Race</span>
           <img
             src="../assets/arrow-bottom.svg"
             alt=""
@@ -100,14 +100,14 @@ window.onscroll = () => {
         <SearchFilterMultiSelect
           v-show="displayFilter === 'type'"
           class="filter"
-          :values="EnumHelpers.getNames(CardType)"
-          :filter-type="FilterType.TYPE"
+          :values="EnumHelpers.getNames(CardRace)"
+          :filter-type="FilterType.RACE"
         />
         <button
           :class="{button__active: displayFilter === 'attribute'}"
           @click="displayFilter = displayFilter === 'attribute' ? '' : 'attribute'"
         >
-          <span>Attribute</span>
+          <span>Tavern Level</span>
           <img
             src="../assets/arrow-bottom.svg"
             alt=""
@@ -117,8 +117,8 @@ window.onscroll = () => {
         <SearchFilterMultiSelect
           v-show="displayFilter === 'attribute'"
           class="filter"
-          :values="EnumHelpers.getNames(CardAttribute)"
-          :filter-type="FilterType.ATTRIBUTE"
+          :values="EnumHelpers.getNames(CardTechLevel)"
+          :filter-type="FilterType.TECHLEVEL"
         />
       </div>
     </div>
